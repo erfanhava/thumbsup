@@ -3,143 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free online text repeater tool. Repeat text multiple times with custom separators, spaces, or newlines.">
-    <title>Text Repeater Tool | Repeat, Multiply & Format Text</title>
+    <title>PDF Editor | Fill & Edit PDF Forms Online</title>
+    <meta name="description" content="Free online PDF editor. Fill, edit, and annotate PDF forms directly in your browser. No installation required.">
+    <link rel="stylesheet" href="../shared/nav.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Adsense (add your own ID) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_CLIENT_ID" crossorigin="anonymous"></script>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <i class="fas fa-tools"></i> WebTools Suite
+            </a>
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="index.html" class="active">PDF Editor</a>
+                <a href="../url-shortener/index.html">URL Shortener</a>
+                <a href="../habit-tracker/index.html">Habit Tracker</a>
+            </div>
+            <button class="dark-toggle" id="darkModeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
     <div class="container">
-        <header>
-            <h1><i class="fas fa-redo-alt"></i> Text Repeater Tool</h1>
-            <p class="subtitle">Repeat, multiply, and format text online for free</p>
+        <header class="tool-header">
+            <h1><i class="fas fa-file-pdf"></i> PDF Editor & Form Filler</h1>
+            <p class="subtitle">Edit, fill, and annotate PDF forms directly in your browser - 100% free</p>
         </header>
 
         <main>
-            <div class="tool-container">
-                <!-- Input Section -->
-                <div class="input-section">
-                    <label for="inputText"><i class="fas fa-keyboard"></i> Enter your text:</label>
-                    <textarea id="inputText" placeholder="Type or paste your text here...">Hello</textarea>
-                    
-                    <div class="controls">
-                        <div class="control-group">
-                            <label for="repeatCount"><i class="fas fa-repeat"></i> Repeat:</label>
-                            <input type="number" id="repeatCount" min="1" max="1000" value="5">
-                            <span>times</span>
-                        </div>
-                        
-                        <div class="control-group">
-                            <label>Separator:</label>
-                            <div class="separator-options">
-                                <button class="sep-option active" data-sep="">None</button>
-                                <button class="sep-option" data-sep=" ">Space</button>
-                                <button class="sep-option" data-sep="\n">New Line</button>
-                                <button class="sep-option" data-sep=",">Comma</button>
-                                <button class="sep-option" data-sep="-">Dash</button>
-                                <button class="sep-option" data-sep="\n\n">Double Line</button>
-                            </div>
-                        </div>
-                        
-                        <div class="control-group">
-                            <label>Presets:</label>
-                            <div class="preset-buttons">
-                                <button class="preset" data-text="Test" data-count="10" data-sep="\n">QA Test (10 lines)</button>
-                                <button class="preset" data-text="Spam" data-count="50" data-sep=" ">Spam Check</button>
-                                <button class="preset" data-text="⭐" data-count="100" data-sep="">100 Stars</button>
-                                <button class="preset" data-text="Lorem Ipsum" data-count="3" data-sep="\n">Lorem Ipsum</button>
-                            </div>
-                        </div>
+            <div class="tool-wrapper">
+                <!-- Upload Section -->
+                <div class="upload-section">
+                    <div class="upload-area" id="dropArea">
+                        <i class="fas fa-cloud-upload-alt fa-3x"></i>
+                        <h3>Upload PDF File</h3>
+                        <p>Drag & drop your PDF here or click to browse</p>
+                        <input type="file" id="pdfInput" accept=".pdf">
+                        <label for="pdfInput" class="btn-primary">
+                            <i class="fas fa-folder-open"></i> Choose PDF
+                        </label>
+                        <p class="upload-note">Max file size: 10MB. Your files never leave your browser.</p>
                     </div>
                     
-                    <div class="action-buttons">
-                        <button id="generateBtn" class="btn-primary">
-                            <i class="fas fa-bolt"></i> Generate Text
-                        </button>
-                        <button id="resetBtn" class="btn-secondary">
-                            <i class="fas fa-undo"></i> Reset
-                        </button>
+                    <div class="template-section">
+                        <h3>Or use a template:</h3>
+                        <div class="template-grid">
+                            <div class="template-card" data-template="invoice">
+                                <i class="fas fa-receipt"></i>
+                                <span>Invoice Form</span>
+                            </div>
+                            <div class="template-card" data-template="application">
+                                <i class="fas fa-user-edit"></i>
+                                <span>Job Application</span>
+                            </div>
+                            <div class="template-card" data-template="contract">
+                                <i class="fas fa-file-contract"></i>
+                                <span>Simple Contract</span>
+                            </div>
+                            <div class="template-card" data-template="blank">
+                                <i class="fas fa-file"></i>
+                                <span>Blank Page</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Output Section -->
-                <div class="output-section">
-                    <div class="output-header">
-                        <label for="outputText"><i class="fas fa-file-alt"></i> Result:</label>
-                        <div class="output-actions">
-                            <button id="copyBtn" class="btn-success">
-                                <i class="fas fa-copy"></i> Copy
+                <!-- Editor Section -->
+                <div class="editor-section" id="editorSection" style="display: none;">
+                    <div class="editor-toolbar">
+                        <div class="tool-group">
+                            <button id="addTextBtn" class="tool-btn">
+                                <i class="fas fa-font"></i> Add Text
                             </button>
-                            <button id="downloadBtn" class="btn-secondary">
-                                <i class="fas fa-download"></i> Download
+                            <button id="addSignatureBtn" class="tool-btn">
+                                <i class="fas fa-signature"></i> Signature
                             </button>
-                            <button id="shareBtn" class="btn-secondary">
-                                <i class="fas fa-share-alt"></i> Share
+                            <button id="highlightBtn" class="tool-btn">
+                                <i class="fas fa-highlighter"></i> Highlight
+                            </button>
+                            <button id="drawBtn" class="tool-btn">
+                                <i class="fas fa-pen"></i> Draw
+                            </button>
+                            <button id="eraserBtn" class="tool-btn">
+                                <i class="fas fa-eraser"></i> Eraser
+                            </button>
+                        </div>
+                        
+                        <div class="tool-group">
+                            <input type="color" id="colorPicker" value="#000000">
+                            <input type="number" id="fontSize" min="8" max="72" value="12">
+                            <select id="fontFamily">
+                                <option value="Arial">Arial</option>
+                                <option value="Times New Roman">Times New Roman</option>
+                                <option value="Courier New">Courier New</option>
+                                <option value="Helvetica">Helvetica</option>
+                            </select>
+                        </div>
+                        
+                        <div class="tool-group">
+                            <button id="undoBtn" class="tool-btn">
+                                <i class="fas fa-undo"></i> Undo
+                            </button>
+                            <button id="redoBtn" class="tool-btn">
+                                <i class="fas fa-redo"></i> Redo
+                            </button>
+                            <button id="clearBtn" class="tool-btn">
+                                <i class="fas fa-trash"></i> Clear All
                             </button>
                         </div>
                     </div>
-                    <textarea id="outputText" readonly placeholder="Your repeated text will appear here..."></textarea>
-                    <div class="stats">
-                        <span id="charCount">Characters: 0</span>
-                        <span id="lineCount">Lines: 0</span>
-                        <span id="wordCount">Words: 0</span>
+
+                    <div class="editor-main">
+                        <div class="pdf-viewer">
+                            <canvas id="pdfCanvas"></canvas>
+                            <div class="canvas-overlay" id="canvasOverlay"></div>
+                        </div>
+                        
+                        <div class="form-fields">
+                            <h3><i class="fas fa-edit"></i> Form Fields</h3>
+                            <div id="formFieldsList">
+                                <!-- Dynamic form fields will appear here -->
+                            </div>
+                            <button id="addFieldBtn" class="btn-secondary">
+                                <i class="fas fa-plus"></i> Add Field
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="page-controls">
+                        <button id="prevPage" class="page-btn">
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </button>
+                        <span id="pageInfo">Page 1 of 1</span>
+                        <button id="nextPage" class="page-btn">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </button>
                     </div>
                 </div>
-            </div>
 
-            <!-- Ad Unit (example) -->
-            <div class="ad-unit">
-                <p class="ad-label">Advertisement</p>
-                <!-- Place your AdSense code here -->
-                <div class="ad-placeholder">
-                    <p>Ad Space (728x90)</p>
+                <!-- Action Buttons -->
+                <div class="action-section">
+                    <button id="saveBtn" class="btn-success" disabled>
+                        <i class="fas fa-download"></i> Download PDF
+                    </button>
+                    <button id="printBtn" class="btn-primary">
+                        <i class="fas fa-print"></i> Print
+                    </button>
+                    <button id="shareBtn" class="btn-secondary">
+                        <i class="fas fa-share-alt"></i> Share
+                    </button>
+                    <button id="newDocBtn" class="btn-secondary">
+                        <i class="fas fa-file"></i> New Document
+                    </button>
                 </div>
-            </div>
 
-            <!-- Features Section -->
-            <div class="features">
-                <h2><i class="fas fa-star"></i> Why Use This Tool?</h2>
-                <div class="feature-grid">
-                    <div class="feature">
-                        <i class="fas fa-bolt"></i>
-                        <h3>Fast & Free</h3>
-                        <p>No registration required. Process text instantly.</p>
+                <!-- Ad Unit -->
+                <div class="ad-unit">
+                    <p class="ad-label">Advertisement</p>
+                    <div class="ad-content">
+                        <!-- AdSense code here -->
                     </div>
-                    <div class="feature">
-                        <i class="fas fa-shield-alt"></i>
-                        <h3>Privacy Safe</h3>
-                        <p>All processing happens in your browser. We don't store your data.</p>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-mobile-alt"></i>
-                        <h3>Mobile Friendly</h3>
-                        <p>Works perfectly on all devices and screen sizes.</p>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-code"></i>
-                        <h3>Developer API</h3>
-                        <p>Coming soon: API access for automated text processing.</p>
+                </div>
+
+                <!-- Features -->
+                <div class="features">
+                    <h2><i class="fas fa-star"></i> Why Choose Our PDF Editor?</h2>
+                    <div class="feature-grid">
+                        <div class="feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <h3>100% Secure</h3>
+                            <p>All processing happens locally in your browser. No server uploads.</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-bolt"></i>
+                            <h3>No Installation</h3>
+                            <p>Works directly in your browser - no software to download.</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-mobile-alt"></i>
+                            <h3>Mobile Friendly</h3>
+                            <p>Edit PDFs on any device - phone, tablet, or computer.</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-save"></i>
+                            <h3>Free Forever</h3>
+                            <p>Completely free with no watermarks or limitations.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
-
-        <footer>
-            <p>Text Repeater Tool &copy; 2023 | 
-                <a href="https://github.com/yourusername/text-repeater" target="_blank">
-                    <i class="fab fa-github"></i> Star on GitHub
-                </a> | 
-                <a href="#" id="darkModeToggle"><i class="fas fa-moon"></i> Dark Mode</a>
-            </p>
-            <p class="footer-note">Bookmark this page for quick access! Share with friends if you find it useful.</p>
-        </footer>
     </div>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="toast">Text copied to clipboard!</div>
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>© 2023 WebTools Suite | 
+                <a href="https://github.com/yourusername/web-tools-suite">
+                    <i class="fab fa-github"></i> GitHub
+                </a> | 
+                <a href="../index.html">All Tools</a>
+            </p>
+            <p class="footer-note">Bookmark this page for quick access to free web tools!</p>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="addFieldModal" class="modal">
+        <div class="modal-content">
+            <h3>Add Form Field</h3>
+            <div class="form-group">
+                <label>Field Type:</label>
+                <select id="fieldType">
+                    <option value="text">Text Input</option>
+                    <option value="checkbox">Checkbox</option>
+                    <option value="date">Date</option>
+                    <option value="signature">Signature</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Field Label:</label>
+                <input type="text" id="fieldLabel" placeholder="Enter field label">
+            </div>
+            <div class="modal-actions">
+                <button id="cancelFieldBtn" class="btn-secondary">Cancel</button>
+                <button id="saveFieldBtn" class="btn-primary">Add Field</button>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
+    <script src="../shared/utils.js"></script>
 </body>
 </html>
