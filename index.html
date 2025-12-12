@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online text repeater tool. Repeat text multiple times with custom separators, spaces, or newlines.">
+    <title>Text Repeater Tool | Repeat, Multiply & Format Text</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Adsense (add your own ID) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_CLIENT_ID" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-redo-alt"></i> Text Repeater Tool</h1>
+            <p class="subtitle">Repeat, multiply, and format text online for free</p>
+        </header>
+
+        <main>
+            <div class="tool-container">
+                <!-- Input Section -->
+                <div class="input-section">
+                    <label for="inputText"><i class="fas fa-keyboard"></i> Enter your text:</label>
+                    <textarea id="inputText" placeholder="Type or paste your text here...">Hello</textarea>
+                    
+                    <div class="controls">
+                        <div class="control-group">
+                            <label for="repeatCount"><i class="fas fa-repeat"></i> Repeat:</label>
+                            <input type="number" id="repeatCount" min="1" max="1000" value="5">
+                            <span>times</span>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label>Separator:</label>
+                            <div class="separator-options">
+                                <button class="sep-option active" data-sep="">None</button>
+                                <button class="sep-option" data-sep=" ">Space</button>
+                                <button class="sep-option" data-sep="\n">New Line</button>
+                                <button class="sep-option" data-sep=",">Comma</button>
+                                <button class="sep-option" data-sep="-">Dash</button>
+                                <button class="sep-option" data-sep="\n\n">Double Line</button>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label>Presets:</label>
+                            <div class="preset-buttons">
+                                <button class="preset" data-text="Test" data-count="10" data-sep="\n">QA Test (10 lines)</button>
+                                <button class="preset" data-text="Spam" data-count="50" data-sep=" ">Spam Check</button>
+                                <button class="preset" data-text="⭐" data-count="100" data-sep="">100 Stars</button>
+                                <button class="preset" data-text="Lorem Ipsum" data-count="3" data-sep="\n">Lorem Ipsum</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button id="generateBtn" class="btn-primary">
+                            <i class="fas fa-bolt"></i> Generate Text
+                        </button>
+                        <button id="resetBtn" class="btn-secondary">
+                            <i class="fas fa-undo"></i> Reset
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Output Section -->
+                <div class="output-section">
+                    <div class="output-header">
+                        <label for="outputText"><i class="fas fa-file-alt"></i> Result:</label>
+                        <div class="output-actions">
+                            <button id="copyBtn" class="btn-success">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button id="downloadBtn" class="btn-secondary">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                            <button id="shareBtn" class="btn-secondary">
+                                <i class="fas fa-share-alt"></i> Share
+                            </button>
+                        </div>
+                    </div>
+                    <textarea id="outputText" readonly placeholder="Your repeated text will appear here..."></textarea>
+                    <div class="stats">
+                        <span id="charCount">Characters: 0</span>
+                        <span id="lineCount">Lines: 0</span>
+                        <span id="wordCount">Words: 0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ad Unit (example) -->
+            <div class="ad-unit">
+                <p class="ad-label">Advertisement</p>
+                <!-- Place your AdSense code here -->
+                <div class="ad-placeholder">
+                    <p>Ad Space (728x90)</p>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="features">
+                <h2><i class="fas fa-star"></i> Why Use This Tool?</h2>
+                <div class="feature-grid">
+                    <div class="feature">
+                        <i class="fas fa-bolt"></i>
+                        <h3>Fast & Free</h3>
+                        <p>No registration required. Process text instantly.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Privacy Safe</h3>
+                        <p>All processing happens in your browser. We don't store your data.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Mobile Friendly</h3>
+                        <p>Works perfectly on all devices and screen sizes.</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-code"></i>
+                        <h3>Developer API</h3>
+                        <p>Coming soon: API access for automated text processing.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Text Repeater Tool &copy; 2023 | 
+                <a href="https://github.com/yourusername/text-repeater" target="_blank">
+                    <i class="fab fa-github"></i> Star on GitHub
+                </a> | 
+                <a href="#" id="darkModeToggle"><i class="fas fa-moon"></i> Dark Mode</a>
+            </p>
+            <p class="footer-note">Bookmark this page for quick access! Share with friends if you find it useful.</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Text copied to clipboard!</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
