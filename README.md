@@ -1,20 +1,25 @@
-# 📄 PDF Editor & Form Filler
+# Job-Report-Static  
+**One-page HTML app** that turns photos + voice notes into a branded PDF report in <30 s—no backend server, no build step.  
+Deploy free to **Vercel** (or GitHub Pages) in two clicks.
 
-A free, browser-based PDF editor that allows you to fill forms, add text, draw, and annotate PDFs without any software installation.
+## Live demo
+Replace this line with your Vercel URL after first deploy.
 
-## ✨ Features
+## Features
+- Camera snapshots (mobile PWA)  
+- Web-speech dictation → auto-cleaned bullets via Google Gemini 1.5 Flash  
+- Client-side PDF (jsPDF) with photo grid & logo spot  
+- One-click shareable link (PDF auto-uploaded to Supabase storage)  
+- Works offline once cached (service-worker)
 
-- **Upload & Edit**: Upload any PDF file and edit it directly in your browser
-- **Form Filling**: Fill out PDF forms with text fields, checkboxes, and dates
-- **Annotations**: Add text, drawings, highlights, and signatures
-- **Templates**: Start with pre-made templates (invoice, application, contract)
-- **Undo/Redo**: Full undo/redo functionality
-- **Save & Export**: Download edited PDF or share directly
-- **Privacy First**: All processing happens locally - no server uploads
+## Stack (all free tiers)
+| Service      | Free allowance        | Where to grab key |
+|--------------|-----------------------|-------------------|
+| Supabase     | 50 k MAU, 500 MB      | Project settings → API |
+| Cloudinary   | 25 GB/month           | Dashboard → Account |
+| Gemini       | 60 requests/min       | [Google AI Studio](https://makersuite.google.com) |
+| Vercel       | 100 GB-hours          | GitHub import |
 
-## 🚀 Quick Start
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/web-tools-suite.git
-   cd web-tools-suite/pdf-editor
+## 30-second setup
+1. Fork / clone this repo  
+2. Create `.env` file (Vercel will read it)  
