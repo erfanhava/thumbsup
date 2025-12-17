@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Job Report Generator</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0066ff" />
+  <title>Job Report</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
   <link rel="manifest" href="manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
@@ -13,35 +15,30 @@
 <body>
   <header>
     <h1>Job Report</h1>
-    <button id="loginBtn" class="outline">Sign-in (Google)</button>
+    <button id="loginBtn" class="ghost">Sign In</button>
   </header>
 
   <main>
-    <section id="cameraSec">
-      <video id="video" playsinline autoplay></video>
-      <canvas id="canvas" style="display:none;"></canvas>
-      <div class="btn-row">
-        <button id="snapBtn">📷 Take Photo</button>
-        <button id="micBtn">🎤 Dictate Note</button>
-      </div>
-    </section>
+    <div id="step1" class="card">
+      <video id="video" playsinline autoplay muted></video>
+      <button id="snapBtn" class="fab"></button>
+    </div>
 
-    <section id="previewSec">
-      <h2>Photos (<span id="photoCount">0</span>)</h2>
+    <div id="step2" class="card" hidden>
       <div id="gallery"></div>
-      <label>Notes
-        <textarea id="notes" rows="4" placeholder="Speak or type job notes…"></textarea>
-      </label>
-      <button id="genBtn" class="primary">Generate PDF & Share Link</button>
-    </section>
+      <div class="note-box">
+        <textarea id="notes" rows="3" placeholder="Describe the job…"></textarea>
+        <button id="micBtn" class="icon" title="Dictate">🎤</button>
+      </div>
+      <button id="genBtn" class="cta">Generate PDF</button>
+    </div>
 
-    <section id="resultSec" hidden>
-      <h2>Done ✅</h2>
-      <p><a id="pdfLink" target="_blank">Open Report</a></p>
-    </section>
+    <div id="step3" class="card center" hidden>
+      <span class="check">✅</span>
+      <h2>Report Ready</h2>
+      <a id="pdfLink" class="button primary" target="_blank">Open PDF</a>
+    </div>
   </main>
-
-  <footer>Powered by ☕ and free APIs</footer>
 
   <script type="module" src="app.js"></script>
 </body>
